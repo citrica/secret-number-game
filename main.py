@@ -3,7 +3,7 @@ import json
 import datetime
 
 
-def play_game():
+def play_game(levelSelect):
     secretNumber = random.randint(1, 30)
     attempts = 0
     wrong_guesses = []
@@ -28,10 +28,14 @@ def play_game():
             print("You've guessed it - congratulations! It's number " + str(secretNumber))
             print("You've needed " + str(attempts) + " attempts.")
             break
-        elif guess > secretNumber:
-            print("Your guess is not correct... try something smaller")
+        if levelSelect == "hard":
+            print("GAME OVER. Your guess is not correct.")
+            break
         else:
-            print("Your guess is not correct... try something bigger")
+            if guess > secretNumber:
+                print("Your guess is not correct... try something smaller")
+            else:
+                print("Your guess is not correct... try something bigger")
         wrong_guesses.append(guess)
 
 
@@ -62,7 +66,9 @@ while True:
     selection = selection.upper()
 
     if selection == "A":
-        play_game()
+        level = input("Select game level (easy/hard): ")
+        level.lower()
+        play_game(level)
     elif selection == "B":
         get_top_scores()
     else:
